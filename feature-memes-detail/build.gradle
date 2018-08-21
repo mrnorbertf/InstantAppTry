@@ -1,0 +1,17 @@
+apply plugin: 'com.android.feature'
+apply from: '../config-android.gradle'
+apply from: '../dependencies-groups.gradle'
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// DEPENDENCIES                                                                                   //
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+dependencies {
+    core()
+    view()
+    network()
+    repository()
+    viewModel()
+
+    implementation project(path: ':base')
+}

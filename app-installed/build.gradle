@@ -1,0 +1,57 @@
+apply plugin: 'com.android.application'
+apply from: '../config-android.gradle'
+apply from: '../dependencies-groups.gradle'
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// APP NAME AND VERSION                                                                           //
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+enum BuildType {
+    DEBUG
+}
+
+static def getAppName(BuildType buildType) {
+    String APP_NAME = "Moj - Memes"
+    switch (buildType) {
+        case BuildType.DEBUG:
+            return APP_NAME + " - " + BuildType.DEBUG.name()
+    }
+}
+
+def versionMajor = 1
+def versionMinor = 0
+def versionPatch = 0
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// ANDROID                                                                                        //
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+android {
+    defaultConfig {
+        applicationId "moj.memes"
+        versionCode versionMajor * 100000 + versionMinor * 1000 + versionPatch * 10
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildTypes {
+            debug {
+                applicationIdSuffix ".debug"
+                resValue "string", "app_name", getAppName(BuildType.DEBUG)
+            }
+        }
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// DEPENDENCIES                                                                                   //
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+dependencies {
+    core()
+    network()
+    view()
+
+    implementation project(path: ':base')
+    implementation project(path: ':feature-memes-list')
+    implementation project(path: ':feature-memes-detail')
+}

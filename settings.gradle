@@ -1,0 +1,3 @@
+include ':app-installed', ':app-instant',
+        ':base',
+        ':feature-memes-list', ':feature-memes-detail'
